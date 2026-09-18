@@ -21,6 +21,12 @@ class UserResource extends JsonResource
             'avatar' => $this->avatar,
             'phone' => $this->phone,
             'onboarding_completed' => $this->onboarding_completed,
+            'latitude' => $this->latitude,
+            'longitude' => $this->longitude,
+            'provider_profile' => $this->whenLoaded(
+                'providerProfile',
+                fn () => new ProviderProfileResource($this->providerProfile)
+            ),
         ];
     }
 }

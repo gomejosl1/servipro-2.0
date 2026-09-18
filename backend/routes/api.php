@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\FacebookAuthController;
 use App\Http\Controllers\Api\V1\GoogleAuthController;
+use App\Http\Controllers\Api\V1\OnboardingController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -26,5 +27,10 @@ Route::prefix('v1')->name('v1.')->group(function () {
             Route::get('/redirect', [FacebookAuthController::class, 'redirect'])->name('redirect');
             Route::get('/callback', [FacebookAuthController::class, 'callback'])->name('callback');
         });
+    });
+
+    Route::prefix('onboarding')->name('onboarding.')->middleware('auth:sanctum')->group(function () {
+        Route::post('/buyer', [OnboardingController::class, 'buyer'])->name('buyer');
+        Route::post('/provider', [OnboardingController::class, 'provider'])->name('provider');
     });
 });
